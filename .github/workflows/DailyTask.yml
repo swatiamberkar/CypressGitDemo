@@ -1,12 +1,13 @@
-name: With server
-on: [push]
+name: example-cron
+on:
+  schedule:
+    # runs tests every day at 4am
+    - cron: '* * * * *'
 jobs:
-  cypress-run:
+  nightly:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Cypress run
+      - name: Cypress nightly tests 🌃
         uses: cypress-io/github-action@v4
-        with:
-          start: npm start
