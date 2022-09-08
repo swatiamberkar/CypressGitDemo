@@ -1,32 +1,17 @@
-name: Weekly cross-browser testing
+name: Cypress Tests
 
-on:
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron: '0 12 * * 1'
+on: [push]
 
 jobs:
-  cross-browser:
+  cypress-run:
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node12.16.1-chrome80-ff73
-      options: --user 1001
     steps:
-      - name: Checkout Commit
-        uses: actions/checkout@v1
-      - name: Firefox Browser Tests
-        uses: cypress-io/github-action@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v4.x.x # use the explicit version number
         with:
-          browser: firefox
-          start: yarn start
-          wait-on: 'http://localhost:8000'
-          wait-on-timeout: 300
-          config: defaultCommandTimeout=100000,pageLoadTimeout=100000,watchForFileChanges=false,video=false
-      - name: Chrome Browser Tests
-        uses: cypress-io/github-action@v1
-        with:
-          browser: chrome
-          start: yarn start
-          wait-on: 'http://localhost:8000'
-          wait-on-timeout: 300
-          config: defaultCommandTimeout=100000,pageLoadTimeout=100000,watchForFileChanges=false,video=false
+          build: npm run build
+          start: npm start
