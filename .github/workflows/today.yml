@@ -1,0 +1,17 @@
+name: example-cron
+on:
+ schedule:
+    # runs tests every day at 4am
+   // - cron: '* * * * *'
+jobs:
+  nightly:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress nightly tests 🌃
+        uses: cypress-io/github-action@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          start: npm start
