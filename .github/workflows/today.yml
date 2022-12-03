@@ -3,13 +3,12 @@ on: [push]
 
 jobs:
   nightly:
-    runs-on: ubuntu-20.04
+    runs-on: windows-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cypress nightly tests 🌃
-        uses: cypress-io/github-action@v4
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
-        with:
-          start: npm start
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '12.x'
+    - name: Install dependencies
+      run: npm install
