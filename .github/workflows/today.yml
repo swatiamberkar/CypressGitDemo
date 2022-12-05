@@ -2,7 +2,7 @@ name: example-cron
 on: [push]
 
 jobs:
-  nightly:
+ // nightly:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
